@@ -1,0 +1,227 @@
+/* =============================================
+   Context Token Tracker — Popup Styles
+   ============================================= */
+
+:root {
+  --bg-main:    #0a0a18;
+  --bg-card:    #111128;
+  --bg-card2:   #16162e;
+  --border:     #2a2a50;
+  --accent:     #7070ff;
+  --green:      #00ff88;
+  --blue:       #00ccff;
+  --orange:     #ffaa00;
+  --red:        #ff4444;
+  --text:       #d0d0ff;
+  --muted:      #55558a;
+  --font:       -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  width: 300px;
+  background: var(--bg-main);
+  color: var(--text);
+  font-family: var(--font);
+  font-size: 13px;
+  padding-bottom: 12px;
+}
+
+/* ── Header ─────────────────────────── */
+header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 16px 12px;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg-card);
+}
+
+.logo {
+  font-size: 22px;
+}
+
+h1 {
+  font-size: 15px;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 0.3px;
+}
+
+.subtitle {
+  font-size: 10px;
+  color: var(--muted);
+  margin-top: 1px;
+}
+
+/* ── Cards ──────────────────────────── */
+.card {
+  margin: 10px 12px 0;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 14px;
+}
+
+/* ── Main Card (ring) ───────────────── */
+.main-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 18px 14px 14px;
+}
+
+.percent-ring {
+  position: relative;
+  width: 110px;
+  height: 110px;
+}
+
+.ring-svg {
+  width: 110px;
+  height: 110px;
+  transform: rotate(-90deg);
+}
+
+.ring-bg {
+  fill: none;
+  stroke: #1e1e3a;
+  stroke-width: 10;
+}
+
+.ring-fill {
+  fill: none;
+  stroke: var(--green);
+  stroke-width: 10;
+  stroke-linecap: round;
+  stroke-dasharray: 314;
+  stroke-dashoffset: 314;
+  transition: stroke-dashoffset 0.7s ease, stroke 0.4s;
+}
+
+.percent-text {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  font-weight: 800;
+  color: #fff;
+}
+
+.site-badge {
+  font-size: 10px;
+  color: var(--muted);
+  background: var(--bg-card2);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 3px 10px;
+  letter-spacing: 0.5px;
+}
+
+/* ── Stats Card ─────────────────────── */
+.stats-card {
+  background: var(--bg-card2);
+}
+
+.stat-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 0;
+  border-bottom: 1px solid #1a1a35;
+}
+
+.stat-row:last-child {
+  border-bottom: none;
+}
+
+.stat-label {
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.stat-value {
+  font-weight: 700;
+  font-size: 12px;
+  color: var(--text);
+}
+
+.stat-value.green { color: var(--green); }
+.stat-value.blue  { color: var(--blue);  }
+.stat-value.orange { color: var(--orange); }
+.stat-value.red   { color: var(--red);   }
+
+/* ── Bar Card ───────────────────────── */
+.bar-card {
+  padding: 12px 14px;
+}
+
+.bar-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  color: var(--muted);
+  margin-bottom: 7px;
+}
+
+#bar-pct-text {
+  color: var(--green);
+  font-weight: 700;
+  transition: color 0.4s;
+}
+
+.progress-bg {
+  background: #1a1a35;
+  border-radius: 8px;
+  height: 8px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--green), var(--blue));
+  border-radius: 8px;
+  transition: width 0.7s ease, background 0.4s;
+}
+
+.bar-hint {
+  font-size: 10px;
+  color: var(--muted);
+  margin-top: 8px;
+  text-align: center;
+}
+
+/* ── Plan card ──────────────────────── */
+.plan-card { padding: 12px 14px; background: var(--bg-card2); }
+.plan-title { font-size:11px; font-weight:700; color:var(--muted); margin-bottom:10px; }
+.plan-buttons { display:flex; gap:8px; margin-bottom:10px; }
+.plan-btn {
+  flex:1; background:#1a1a35; border:1px solid var(--border);
+  border-radius:8px; color:var(--text); font-size:12px;
+  font-weight:700; padding:8px 4px; cursor:pointer;
+  transition:border-color 0.2s, background 0.2s; line-height:1.4;
+}
+.plan-btn span { font-size:9px; font-weight:400; color:var(--muted); display:block; }
+.plan-btn:hover        { border-color: var(--accent); }
+.plan-btn.active-free  { border-color:var(--green); background:#001a0a; color:var(--green); }
+.plan-btn.active-plus  { border-color:#aa44ff;      background:#1a0033; color:#cc88ff; }
+.plan-btn.active-pro   { border-color:var(--blue);  background:#001a2a; color:var(--blue); }
+.plan-quota { font-size:11px; color:var(--muted); text-align:center; }
+.plan-quota strong { color:var(--text); }
+
+/* ── Last update ────────────────────── */
+.last-update {
+  text-align: center;
+  font-size: 10px;
+  color: var(--muted);
+  margin-top: 10px;
+}

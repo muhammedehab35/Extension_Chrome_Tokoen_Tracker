@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="UTF-8"><title>Générer les icônes</title></head>
+<body style="background:#111;color:#fff;font-family:sans-serif;padding:20px;">
+  <h2>⚡ Générateur d'icônes — Token Tracker</h2>
+  <p style="color:#aaa">Clique sur chaque bouton pour télécharger l'icône PNG correspondante.</p>
+  <br>
+
+  <canvas id="c16"  width="16"  height="16"  style="display:none"></canvas>
+  <canvas id="c48"  width="48"  height="48"  style="display:none"></canvas>
+  <canvas id="c128" width="128" height="128" style="display:none"></canvas>
+
+  <div style="display:flex;gap:20px;flex-wrap:wrap;margin-top:20px;">
+    <div style="text-align:center">
+      <canvas id="preview16" width="16" height="16" style="border:1px solid #444;image-rendering:pixelated;width:64px;height:64px;display:block;margin-bottom:8px;"></canvas>
+      <button onclick="download('c16','icon16.png',16)" style="padding:6px 14px;background:#7070ff;color:#fff;border:none;border-radius:6px;cursor:pointer;">icon16.png</button>
+    </div>
+    <div style="text-align:center">
+      <canvas id="preview48" width="48" height="48" style="border:1px solid #444;image-rendering:pixelated;width:96px;height:96px;display:block;margin-bottom:8px;"></canvas>
+      <button onclick="download('c48','icon48.png',48)" style="padding:6px 14px;background:#7070ff;color:#fff;border:none;border-radius:6px;cursor:pointer;">icon48.png</button>
+    </div>
+    <div style="text-align:center">
+      <canvas id="preview128" width="128" height="128" style="border:1px solid #444;width:128px;height:128px;display:block;margin-bottom:8px;"></canvas>
+      <button onclick="download('c128','icon128.png',128)" style="padding:6px 14px;background:#7070ff;color:#fff;border:none;border-radius:6px;cursor:pointer;">icon128.png</button>
+    </div>
+  </div>
+
+  <p style="color:#888;margin-top:24px;font-size:13px;">
+    ℹ️ Après téléchargement, place les 3 fichiers dans le dossier <code style="color:#aef">token-tracker/icons/</code>
+  </p>
+
+  <script>
+    function drawIcon(canvas, size) {
+      const ctx = canvas.getContext('2d');
+      const cx = size / 2, cy = size / 2, r = size / 2;
+
+      // Fond circulaire
+      const grad = ctx.createRadialGradient(cx, cy*0.8, 0, cx, cy, r);
+      grad.addColorStop(0, '#2a2a6e');
+      grad.addColorStop(1, '#0a0a20');
+      ctx.beginPath();
+      ctx.arc(cx, cy, r, 0, Math.PI * 2);
+      ctx.fillStyle = grad;
+      ctx.fill();
+
+      // Arc de progression (exemple 65%)
+      const pct = 0.65;
+      const startAngle = -Math.PI / 2;
+      const endAngle   = startAngle + (2 * Math.PI * pct);
+      const lineW = size * 0.1;
+
+      // Arc fond
+      ctx.beginPath();
+      ctx.arc(cx, cy, r * 0.68, 0, Math.PI * 2);
+      ctx.strokeStyle = '#1e1e4a';
+      ctx.lineWidth = lineW;
+      ctx.stroke();
+
+      // Arc coloré
+      const arcGrad = ctx.createLinearGradient(0, 0, size, size);
+      arcGrad.addColorStop(0, '#00ff88');
+      arcGrad.addColorStop(1, '#00ccff');
+      ctx.beginPath();
+      ctx.arc(cx, cy, r * 0.68, startAngle, endAngle);
+      ctx.strokeStyle = arcGrad;
+      ctx.lineWidth = lineW;
+      ctx.lineCap = 'round';
+      ctx.stroke();
+
+      // Éclair ⚡ au centre
+      if (size >= 48) {
+        ctx.fillStyle = '#ffffff';
+        ctx.font = `bold ${size * 0.3}px sans-serif`;
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText('⚡', cx, cy + size * 0.02);
+      } else {
+        // Pour 16px, juste un point lumineux
+        ctx.beginPath();
+        ctx.arc(cx, cy, size * 0.18, 0, Math.PI * 2);
+        ctx.fillStyle = '#00ff88';
+        ctx.fill();
+      }
+    }
+
+    // Dessiner les previews
+    [16, 48, 128].forEach(s => {
+      drawIcon(document.getElementById('c'  + s), s);
+      drawIcon(document.getElementById('preview' + s), s);
+    });
+
+    function download(id, filename, size) {
+      const canvas = document.getElementById(id);
+      drawIcon(canvas, size);
+      const a = document.createElement('a');
+      a.download = filename;
+      a.href = canvas.toDataURL('image/png');
+      a.click();
+    }
+  </script>
+</body>
+</html>

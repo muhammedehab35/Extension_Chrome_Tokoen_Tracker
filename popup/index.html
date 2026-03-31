@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Token Tracker</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <header>
+    <div class="logo">⚡</div>
+    <div class="title-block">
+      <h1>Token Tracker</h1>
+      <p class="subtitle">Real-time AI context monitor</p>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- Main card: percentage ring -->
+    <div class="card main-card">
+      <div class="percent-ring">
+        <svg viewBox="0 0 120 120" class="ring-svg">
+          <circle class="ring-bg"   cx="60" cy="60" r="50" />
+          <circle class="ring-fill" cx="60" cy="60" r="50" id="ring-fill" />
+        </svg>
+        <div class="percent-text" id="percent-display">0%</div>
+      </div>
+      <div class="site-badge" id="site-badge">—</div>
+    </div>
+
+    <!-- Stats -->
+    <div class="card stats-card">
+      <div class="stat-row">
+        <span class="stat-label">Tokens used</span>
+        <span class="stat-value" id="stat-tokens">—</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-label">Context limit</span>
+        <span class="stat-value" id="stat-max">—</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-label">Tokens remaining</span>
+        <span class="stat-value green" id="stat-remaining">—</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-label">Estimated cost</span>
+        <span class="stat-value blue" id="stat-cost">—</span>
+      </div>
+    </div>
+
+    <!-- Progress bar -->
+    <div class="card bar-card">
+      <div class="bar-label">
+        <span>Usage</span>
+        <span id="bar-pct-text">0%</span>
+      </div>
+      <div class="progress-bg">
+        <div class="progress-fill" id="progress-fill"></div>
+      </div>
+      <div class="bar-hint" id="bar-hint">Open Claude.ai, ChatGPT, Gemini or Groq to start</div>
+    </div>
+
+    <!-- Plan selector (ChatGPT only) -->
+    <div class="card plan-card">
+      <div class="plan-title">⚙️ My ChatGPT plan</div>
+      <div class="plan-buttons">
+        <button class="plan-btn" id="btn-free" onclick="setPlan('free')">
+          Free<br><span>dynamic limit</span>
+        </button>
+        <button class="plan-btn" id="btn-plus" onclick="setPlan('plus')">
+          Plus<br><span>dynamic limit</span>
+        </button>
+        <button class="plan-btn" id="btn-pro" onclick="setPlan('pro')">
+          Pro<br><span>unlimited</span>
+        </button>
+      </div>
+      <div class="plan-quota">
+        Messages sent: <strong id="plan-msg-count">—</strong>
+        / <strong id="plan-msg-limit">—</strong>
+        <span id="plan-window"></span>
+      </div>
+    </div>
+
+    <!-- Last update -->
+    <div class="last-update">
+      Updated: <span id="last-update">—</span>
+    </div>
+
+  </main>
+
+  <script src="index.js"></script>
+</body>
+</html>
